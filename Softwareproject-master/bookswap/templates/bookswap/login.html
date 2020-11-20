@@ -1,0 +1,47 @@
+{% extends "bookswap/layout.html" %}
+
+{% block body %}
+    <div class="col px-md-5" >
+    <h2>Login</h2>
+</div>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="col px-md-4">
+            <form class="px-4 py-3">
+              <div class="form-group">
+                  <div class="w-25 p-3">
+                <label for="exampleDropdownFormUsername">User Name</label>
+                <input type="text" class="form-control" name="username" id="exampleDropdownFormUsername" placeholder="Username">
+              </div>
+              </div>
+              <div class="w-25 p-3">
+              <div class="form-group">
+                <label for="exampleDropdownFormPassword1">Password</label>
+                <input type="password" class="form-control" name="Passoword" id="exampleDropdownFormPassword1" placeholder="Password">
+              </div>  
+              </div>
+              <div class="col px-md-4">
+              <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                  <label class="form-check-label" for="dropdownCheck">
+                    Remember me
+                  </label>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary" value="Login">Sign in</button>
+              </div>
+            </form>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'register' %}">New around here? Sign up</a>
+            <a class="dropdown-item" href="#">Forgot password?</a>
+          </div>
+
+
+{% endblock %}
+
