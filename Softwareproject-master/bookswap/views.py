@@ -3,65 +3,56 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.contrib.auth.models import User,auth
+from django.contrib.auth.models import User
+from django.contrib import auth
+import django.contrib.auth.hashers as djh
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def homepg(request):
     return render(request, "bookswap/index")
 
 def login_view(request):
-    if request.method == "POST":
-
-        
-
-        password1 = request.POST.get("Password")
-        username = request.POST.get("username")
-        print(username)
-        print(password1)
-        user = auth.authenticate(username=username, password=password1)
-
-        print(user)
+    if request.user.is_authenticated:
+        return render(request, 'bookswap/homepg.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            auth.login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            login(request, user)
+            return HttpResponseRedirect(reverse('Home'))
         else:
-            return render(request, "bookswap/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            form = AuthenticationForm(request.POST)
+            return render(request, 'bookswap/login.html', {'form': form})
     else:
-        return render(request, "bookswap/login.html")
-
+        form = AuthenticationForm()
+        return render(request, 'bookswap/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("login"))
 
 
 def register(request):
-    if request.method == "POST":
-        first_name=request.POST["first_name"]
-        last_name = request.POST["last_name"]
-        username = request.POST["username"]
-        email = request.POST["email"]
-
-        
-        password1 = request.POST["password1"]
-        password2 = request.POST["password2"]
-        if password1 != password2:
-            return render(request, "bookswap/register.html", {
-                "message": "Passwords must match."
-            })
-
-       
-        try:
-            user = User.objects.create_user(username=username, email=email, password=password1,first_name=first_name,last_name=last_name)
-            user.save()
-        except IntegrityError:
-            return render(request, "bookswap/register.html", {
-                "message": "Username already taken."
-            })
-
-        auth.login(request, user)
-        return HttpResponseRedirect(reverse("Home"))
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('Home'))
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect(reverse('Home'))
+        else:
+            return render(request, 'bookswap/register.html', {'form': form})
     else:
-        return render(request, "bookswap/register.html")
+        form = UserCreationForm()
+        return render(request, 'bookswap/register.html', {'form': form})
+
+
+def test(request):
+    return render(request,"bookswap/homepg.html")
