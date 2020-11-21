@@ -1,0 +1,11 @@
+{% extends "bookswap/layout.html" %}
+
+{% block body %}
+<div>
+    <form action="{% url 'Home' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Create</button>
+    </form>
+</div>
+{% endblock %}

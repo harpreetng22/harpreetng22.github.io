@@ -8,7 +8,7 @@ from django.contrib import auth
 import django.contrib.auth.hashers as djh
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
-
+from .models import Listing,listing_form
 
 def homepg(request):
     return render(request, "bookswap/index")
@@ -55,4 +55,10 @@ def register(request):
 
 
 def test(request):
-    return render(request,"bookswap/homepg.html")
+    if request.method == 'POST':
+       form = listing_form(request.POST,request.FILES)
+       form.save()
+       return render(request,"bookswap/create_listing.html",{'form':form})
+    else:
+        form=listing_form()
+        return render(request,"bookswap/create_listing.html",{'form':form})
