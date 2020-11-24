@@ -1,0 +1,19 @@
+{% extends "bookswap/layout.html" %}
+
+{% block body %}
+
+    <h2 class="p-3">Register</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Signup</button>
+    </form>
+    <div class="w-25 p-3">
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "bookswap/layout.html" %}
+
+{% block body %}
+    <div class="col px-md-5" >
+    <h2>Login</h2>
+</div>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Login</button>
+    </form>
+    <div><a href="{% url 'register' %}">Signup</a></div>
+{% endblock %}
+

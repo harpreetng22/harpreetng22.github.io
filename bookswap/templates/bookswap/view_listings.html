@@ -1,0 +1,25 @@
+{% extends "bookswap/layout.html" %}
+
+{% block body %}
+<div>
+    {% for i in data %}
+    <div class="list">
+        
+  <li class="listings"> Name : {{i.first_name}}
+    {{i.last_name}}
+    Have:{{i.have}}
+    Want: {{i.want}}
+    
+    {% ifequal i.img "static/bookswap/book.svg" %}
+    <img src="{{i.img}}" height="100" width="100">
+    {% else %}
+    <img src="bookswap/media/{{i.img}}" height="100" width="100" >
+    {% endifequal %}
+    
+  </li>  
+    </div>
+</div>
+    {% endfor %}
+</div>
+  
+{% endblock %}

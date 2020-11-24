@@ -1,0 +1,21 @@
+body{
+    background-image: url('bg.jpg');
+    color: white;
+}
+
+.display-1{
+ text-align: center;
+ 
+}
+
+.listings{
+    
+    border: 1px solid white:
+    
+    
+}
+
+div.list{
+    padding: 10px;
+    border: 10px solid white;
+}

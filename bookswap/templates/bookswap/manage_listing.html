@@ -1,0 +1,17 @@
+{% extends "bookswap/layout.html" %}
+
+{% block body %}
+
+    <h2 class="p-3">Listing</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'listing' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{formset.as_p}}
+        <button type="submit">Upload</button>
+    </form>
+    
+{% endblock %}
