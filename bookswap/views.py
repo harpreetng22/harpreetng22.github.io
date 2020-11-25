@@ -109,3 +109,6 @@ def matches(request):
          return render(request,"bookswap/nomatch.html")
     else:
          return render(request,"bookswap/homepg.html")
+
+def test(request):
+    return render(request,'bookswap/test.html')

@@ -2,24 +2,37 @@
 
 {% block body %}
 <div>
+  <div class="listings">
+    
     {% for i in data %}
-    <div class="list">
-        
-  <li class="listings"> Name : {{i.first_name}}
+    
+    <ul class="list-group">
+      <div class="container">
+  <li class="listing">
+    <li class="list-group-item"> 
+    {{i.first_name}}
+  
     {{i.last_name}}
-    Have:{{i.have}}
+  </li>
+  <li class="list-group-item">
+    Has:{{i.have}}
+  </li>
+  <li class="list-group-item">
     Want: {{i.want}}
-    
+  </li>
+  <div class="list-image">
     {% ifequal i.img "static/bookswap/book.svg" %}
-    <img src="{{i.img}}" height="100" width="100">
+    <img src="{{i.img}}" height="200" width="200">
     {% else %}
-    <img src="bookswap/media/{{i.img}}" height="100" width="100" >
+    <img src="bookswap/media/{{i.img}}" height="200" width="200" >
     {% endifequal %}
-    
+  </div>
+  </div>
   </li>  
     </div>
 </div>
     {% endfor %}
-</div>
+  </ul>
+
   
 {% endblock %}

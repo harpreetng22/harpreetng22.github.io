@@ -1,4 +1,11 @@
+
+head{
+    color: black;
+    background-image: none;
+    background-color: white;
+}
 body{
+    
     background-image: url('bg.jpg');
     color: white;
 }
@@ -9,13 +16,47 @@ body{
 }
 
 .listings{
-    
-    border: 1px solid white:
+    background-image: none;
+    color: black;
+    padding-bottom: 10px;
     
     
 }
-
+.list-group{
+    background-image: none;
+    color: black;
+    
+}
 div.list{
     padding: 10px;
-    border: 10px solid white;
+    
+}
+
+.topbar{
+    padding-top: 10px ;
+    background-color: white;
+    padding-bottom: 10px;
+}
+
+ul.list-group{
+    padding-top: 20px;
+    list-style-type: none;
+    border: 2px solid black;
+    padding-bottom: 20px;
+}
+.container-fluid{
+    color: black;
+    background-color: white;
+    text-align: left;
+}
+.list-group-item{
+    border-radius: 10px;
+    
+}
+ul.nav{
+    text-align: left;
+}
+.list-image{
+    
+ text-align: center;
 }
