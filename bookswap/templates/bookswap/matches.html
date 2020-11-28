@@ -1,16 +1,20 @@
 90-{% extends "bookswap/layout.html" %}
 {% load customfuncs %}
 {% block body %}
-
+<form method="POST">
+  {% csrf_token %}
     {% for i in data %}
     {% for j in data %}
      {% converter i.user as cuser %}
       {% if i.user != j.user and i.want == j.have and j.want == i.have and cuser == user.username %}
-      <li class="listings"> Name : {{j.first_name}}
+      <input type="radio" id="listing" name="listing" value={{j}}>
+      <label for="listing">
+      <li class="listings"> 
+        <label for="Name">Name : {{j.first_name}}
         {{j.last_name}}
-        Have:{{j.have}}
+        <label for='Have'>{{j.have}}</label>
         Want: {{j.want}}
-        <div><a href="{% url 'request' %}">Send Request</a></div>
+        
         {% ifequal j.img "static/bookswap/book.svg" %}
         <img src="{{i.img}}" height="100" width="100">
         {% else %}
@@ -19,11 +23,51 @@
         {% endifequal %}
         
       </li>
-
+     
       {% else %}
     
         {% endif %}
+      </label>
+      
+    {% endfor %}  
+    {% endfor %}
+    <button type="submit" name="send_request">Submit Request</button>
+</form>
+
+<h1>Pending Requests</h1>
+<form method="POST">
+  {% csrf_token %}
+    {% for i in requests %}
+    {% for j in requests %}
+     {% converter i.user as cuser %}
+      {% if i.user != j.user and i.want == j.have and j.want == i.have and cuser == user.username %}
+      <input type="radio" id="acc_request" name="acc_request" value={{j}}>
+      <label for="acc_request">
+      <li class="listings"> 
+        <label for="Name">Name : {{j.first_name}}
+        {{j.last_name}}
+        <label for='Have'>{{j.have}}</label>
+        Want: {{j.want}}
+        
+        {% ifequal j.img "static/bookswap/book.svg" %}
+        <img src="{{i.img}}" height="100" width="100">
+        {% else %}
+        <img src="bookswap/media/{{i.img}}" height="100" width="100" >
+
+        {% endifequal %}
+        
+      </li>
+     
+      {% else %}
+    
+        {% endif %}
+      </label>
+      
     {% endfor %}  
     {% endfor %}
     
+    <button type="submit" name="accept_request">Accept Request</button>
+    <button type="submit" name="rej_request">Reject Request</button>
+    
+</form>
 {% endblock %}

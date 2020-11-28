@@ -1,0 +1,31 @@
+{% extends "bookswap/layout.html" %}
+{% load customfuncs %}
+{% block body %}
+<form method="GET">
+     {% for i in data %}
+     {% converter i.user as cuser %}
+     {% if user.username == cuser %}
+     <li class="listings"> 
+        <label for="Name">Name : {{i.first_name}}
+        {{i.last_name}}
+        <label for='Have'>{{i.have}}</label>
+        Want: {{i.want}}
+        
+        {% ifequal i.img "static/bookswap/book.svg" %}
+        <img src="{{i.img}}" height="100" width="100">
+        {% else %}
+        <img src="bookswap/media/{{i.img}}" height="100" width="100" >
+
+        {% endifequal %}
+        
+      </li>
+     
+      {% else %}
+    
+        {% endif %}
+      </label>
+      
+    {% endfor %}  
+    </form>
+    
+{% endblock %}

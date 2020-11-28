@@ -1,3 +1,4 @@
+from bookswap.views import active_listings
 from django.urls import path
 from django.urls import URLPattern
 from . import views
@@ -12,4 +13,5 @@ urlpatterns = [
     path("match",views.matches,name="match"),
     path("request",views.request,name="request"),
     path("test",views.test,name="test"),
+    path("active",views.active_listings,name="active"),
 ]

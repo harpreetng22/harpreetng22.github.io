@@ -14,7 +14,7 @@ class Listing(models.Model):
     have=models.CharField(max_length=120)
     want=models.CharField(max_length=120)
     img=models.ImageField(upload_to="images/'",null=True)
-
+    check_req=models.IntegerField(max_length=4,default=0)
 
     def __str__(self):
         return (f'{self.first_name}  Has:{self.have}  Want:{self.want}')
@@ -32,4 +32,3 @@ class Request(models.Model):
     listing_id=models.ForeignKey(Listing,on_delete=models.CASCADE)
     requested_by=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
 
-    
