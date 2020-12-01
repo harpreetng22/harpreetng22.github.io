@@ -1,7 +1,7 @@
 90-{% extends "bookswap/layout.html" %}
 {% load customfuncs %}
 {% block body %}
-<form method="POST">
+<form method="POST" action="{% url 'match' %}" >
   {% csrf_token %}
     {% for i in data %}
     {% for j in data %}
@@ -9,7 +9,8 @@
       {% if i.user != j.user and i.want == j.have and j.want == i.have and cuser == user.username %}
       <input type="radio" id="listing" name="listing" value={{j}}>
       <label for="listing">
-      <li class="listings"> 
+        <ul class="list-group">
+      <li class="list-group-item"> 
         <label for="Name">Name : {{j.first_name}}
         {{j.last_name}}
         <label for='Have'>{{j.have}}</label>
@@ -21,7 +22,7 @@
         <img src="bookswap/media/{{i.img}}" height="100" width="100" >
 
         {% endifequal %}
-        
+      </ul>
       </li>
      
       {% else %}
@@ -43,8 +44,10 @@
       {% if i.user != j.user and i.want == j.have and j.want == i.have and cuser == user.username %}
       <input type="radio" id="acc_request" name="acc_request" value={{j}}>
       <label for="acc_request">
-      <li class="listings"> 
-        <label for="Name">Name : {{j.first_name}}
+        <ul class="list-group">
+          
+          <li class="list-group-item">
+              <label for="Name">Name : {{j.first_name}}
         {{j.last_name}}
         <label for='Have'>{{j.have}}</label>
         Want: {{j.want}}
@@ -55,12 +58,13 @@
         <img src="bookswap/media/{{i.img}}" height="100" width="100" >
 
         {% endifequal %}
-        
+      
       </li>
      
       {% else %}
     
         {% endif %}
+        </ul>
       </label>
       
     {% endfor %}  

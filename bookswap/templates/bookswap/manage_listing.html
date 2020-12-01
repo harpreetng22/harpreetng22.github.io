@@ -9,8 +9,10 @@
     {% endif %}
 
     <form action="{% url 'listing' %}" method="post" enctype="multipart/form-data">
+    <p>    
         {% csrf_token %}
         {{formset.as_p}}
+    </p>
         <button type="submit">Upload</button>
     </form>
     

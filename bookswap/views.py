@@ -110,9 +110,9 @@ def matches(request):
         'data':data,'requests':data1,
          })
      else:
-         return render(request,"bookswap/nomatch.html")
+         return render(request,"bookswap/view_listings.html")
     else:
-         return render(request,"bookswap/homepg.html")
+         return render(request,"bookswap/view_listings.html")
   if request.method == 'POST':
       if 'send_request' in request.POST:
         uname=request.user.username
@@ -127,7 +127,7 @@ def matches(request):
                         j.save()
                         i.save()
         
-        return render(request,"bookswap/homepg.html")
+        return HttpResponseRedirect(reverse('view_listing'))
       if 'accept_request' in request.POST:
         uname=request.user.username
         print(request.POST.get('acc_request'))
@@ -144,7 +144,7 @@ def matches(request):
                         j.check_req=0
                         j.save()
                         
-        return render(request,"bookswap/test.html")
+        return HttpResponseRedirect(reverse('view_listing'))
       elif 'rej_request' in request.POST:
         print('reject')
         uname=request.user.username
@@ -165,7 +165,7 @@ def matches(request):
                         j.save()
                         i.save()
         
-        return render(request,"bookswap/test.html")
+        return HttpResponseRedirect(reverse('view_listing'))
 
 def active_listings(request):
      data=Listing.objects.filter(check_req=0)
